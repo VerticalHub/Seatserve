@@ -8,7 +8,6 @@ router.get('/summary', async (req, res) => {
     const runners = await db.query("SELECT COUNT(*) FROM users WHERE role = 'runner' AND is_online = true");
     const stands = await db.query("SELECT COUNT(*) FROM stands");
     const revenue = await db.query("SELECT SUM(total) FROM orders WHERE status = 'delivered'");
-    
     res.json({
       orders: parseInt(orders.rows[0].count),
       runners: parseInt(runners.rows[0].count),
@@ -37,11 +36,11 @@ router.get('/orders-by-venue', async (req, res) => {
 router.get('/top-runners', async (req, res) => {
   try {
     const result = await db.query(`
-      SELECT u.name, u.phone, COUNT(o.id) as deliveries
+      SELECT u.name, u.email, COUNT(o.id) as deliveries
       FROM users u
       JOIN orders o ON u.id = o.runner_id
       WHERE o.status = 'delivered'
-      GROUP BY u.id, u.name, u.phone
+      GROUP BY u.id, u.name, u.email
       ORDER BY deliveries DESC
       LIMIT 5
     `);

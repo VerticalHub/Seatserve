@@ -5,9 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "nodemon server/index.js",
-    "build": "cd client && npm install && npm run build",
-    "installall": "npm install && cd client && npm install"
+    "build": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
